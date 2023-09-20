@@ -34,8 +34,8 @@ export default class Map extends Component {
       "脱自己一件衣服",
       "手伸对方裤裤随意发挥10秒",
       "为对方吸一颗草莓",
-      "为对方按摩脖子 肩膀 背部",
-      "下体摩擦下体30秒",
+      "为对方按摩脖子 肩膀 背 20秒",
+      "下体摩擦对方下体30秒",
       "休息一轮",
     ];
 
@@ -92,26 +92,36 @@ export default class Map extends Component {
               })
             )}
           </div>
-          <div>
-            <div className="dice-num">{this.state.diceNumber}</div>
-            <div
-              className="dice"
-              onClick={() => {
-                this.move(this.state.turn, this.state.array);
-              }}
-            >
-              Roll the dice
+
+          <div className="dice-board">
+            <div>
+              <div className="dice-num">{this.state.diceNumber} steps</div>
+              <div
+                className="dice"
+                onClick={() => {
+                  this.move(this.state.turn, this.state.array);
+                }}
+              >
+                Roll the dice
+              </div>
             </div>
             <div className="turn">
-              <div>Your turn: </div>
-              <div
-                className="turn-color"
-                style={
-                  this.state.turn === "user1"
-                    ? { background: this.state.user1Color }
-                    : { background: this.state.user2Color }
-                }
-              ></div>
+              <div>Next round: </div>
+              {this.state.turn === "user1" ? (
+                <div
+                  className="turn-color"
+                  style={{ background: this.state.user1Color }}
+                >
+                  PengPeng
+                </div>
+              ) : (
+                <div
+                  className="turn-color"
+                  style={{ background: this.state.user2Color }}
+                >
+                  FeiFei
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -236,7 +246,9 @@ export default class Map extends Component {
 
       // eslint-disable-next-line
       setTimeout(() => {
-        this.setState({ popupMessage: this.state.poolArray[x][y] });
+        this.setState({
+          popupMessage: this.state.poolArray[x][y],
+        });
         popupWindow[0].style.display = "block";
         if (turn === "user1") {
           popupWindow[0].style.backgroundColor = user1Color;
