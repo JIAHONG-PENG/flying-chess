@@ -1,7 +1,7 @@
 :root {
   --cell-size: 60px;
   --board-size: 620px;
-  --blank-color: rgb(247, 216, 144);
+  --blank-color: rgb(239, 218, 236);
 }
 body {
   font-family :Arial, Helvetica, sans-serif;
