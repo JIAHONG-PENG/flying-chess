@@ -56,7 +56,7 @@ export default class Map extends Component {
       array: array,
       height: 10,
       width: 10,
-      speed: 400,
+      speed: 500,
       user1CanGoDirection: "left",
       user2CanGoDirection: "left",
       user1Color: "#a0d2eb",
@@ -77,7 +77,7 @@ export default class Map extends Component {
             {array.map((value, idx) =>
               value.map((bool, idx1) => {
                 if (idx === 0 && idx1 === 9) {
-                  return <div className="map-cell start" key={idx1}></div>;
+                  return <div className="map-cell user1Image" key={idx1}></div>;
                 } else if (bool) {
                   return (
                     <div className="map-cell" key={idx1}>
@@ -108,25 +108,15 @@ export default class Map extends Component {
             <div className="turn">
               <div>Next round: </div>
               {this.state.turn === "user1" ? (
-                <div
-                  className="turn-color"
-                  style={{ background: this.state.user1Color }}
-                >
-                  PengPeng
-                </div>
+                <div className="turn-color user1Image"></div>
               ) : (
-                <div
-                  className="turn-color"
-                  style={{ background: this.state.user2Color }}
-                >
-                  FeiFei
-                </div>
+                <div className="turn-color user2Image"></div>
               )}
             </div>
           </div>
         </div>
         <div className="popup">
-          {this.state.popupMessage}
+          <div className="popupMessage">{this.state.popupMessage}</div>
           <div
             className="close-button"
             onClick={() => {
@@ -141,7 +131,9 @@ export default class Map extends Component {
   }
 
   move(turn, array) {
+    const rollBtn = document.getElementsByClassName("dice")[0];
     // get random number
+    rollBtn.style.visibility = "hidden";
     const num = Math.floor(Math.random() * 4 + 1);
 
     const cells = document.getElementsByClassName("map-cell");
@@ -163,8 +155,8 @@ export default class Map extends Component {
     const width = this.state.width;
     var color;
 
-    const user1Color = this.state.user1Color;
-    const user2Color = this.state.user2Color;
+    const user1Color = "map-cell user1Image";
+    const user2Color = "map-cell user2Image";
     const user1Position = this.state.user1;
     const user2Position = this.state.user2;
     var canGoDirection;
@@ -216,7 +208,7 @@ export default class Map extends Component {
           previouY = y;
           y += 1;
         }
-        newCells[previouX][previouY].style.backgroundColor =
+        newCells[previouX][previouY].className =
           (turn === "user1" &&
             previouX === user2Position[0] &&
             previouY === user2Position[1]) ||
@@ -224,11 +216,11 @@ export default class Map extends Component {
             previouX === user1Position[0] &&
             previouY === user1Position[1])
             ? turn === "user1"
-              ? user2Color
-              : user1Color
-            : "rgb(194, 194, 239)";
+              ? "map-cell user2Image"
+              : "map-cell user1Image"
+            : "map-cell";
 
-        newCells[x][y].style.backgroundColor = color;
+        newCells[x][y].className = color;
         if (turn === "user1") {
           this.setState({ user1: [x, y] });
         } else {
@@ -251,16 +243,21 @@ export default class Map extends Component {
         });
         popupWindow[0].style.display = "block";
         if (turn === "user1") {
-          popupWindow[0].style.backgroundColor = user1Color;
+          popupWindow[0].className = "popup popupImage1";
         } else {
-          popupWindow[0].style.backgroundColor = user2Color;
+          popupWindow[0].className = "popup popupImage2";
         }
-      }, num * this.state.speed);
+
+        // rollBtn.style.visibility = "";
+      }, (num + 0.05) * this.state.speed);
     }
   }
 
   onClickCloseWindow() {
     const popupWindow = document.getElementsByClassName("popup")[0];
     popupWindow.style.display = "none";
+
+    const rollBtn = document.getElementsByClassName("dice")[0];
+    rollBtn.style.visibility = "";
   }
 }

@@ -6,7 +6,7 @@
 body {
   font-family :Arial, Helvetica, sans-serif;
   font-size: 20px;
-  background: url(../public/wallpaper2.jpeg) repeat-x center center fixed;
+  background: url(../public/wallpaper2.jpeg) repeat-x 50% 65% fixed;
 }
 
 .board {
@@ -76,8 +76,8 @@ body {
   top: 10px;
 }
 .board .dice-board  .turn .turn-color {
-  width: fit-content;
-  height: 50px;
+  width: 80px;
+  height: 80px;
 }
 
 .popup {
@@ -91,10 +91,34 @@ body {
   left: 50%;
   transform: translate(-50%, -80%);
   display: none;
-  text-align: center;
+  /* text-align: center; */
   font-size: 20px;
-  line-height: 300px;
+  /* line-height: 300px; */
 }
+
+.popup .popupMessage {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 10px;
+  font-size: 25px;
+  width: fit-content;
+  height: fit-content;
+  background: white;
+  padding: 0 10px 0 10px;
+}
+
+.popupImage1 {
+  background: url(../public/popup1.png);
+  background-size: contain;
+}
+
+.popupImage2 {
+  background: url(../public/popup2.png);
+  background-size: contain;
+}
+
 .popup .close-button {
   position: absolute;
   height: fit-content;
@@ -107,4 +131,16 @@ body {
   border-radius: 5px;
   cursor: pointer;
   padding: 5px;
+  background: white;
 }
+
+.board .map-border .user1Image, .user1Image {
+  background: url(../public/user1Image.png);
+  background-size: contain;
+}
+
+.board .map-border .user2Image, .user2Image {
+  background: url(../public/user2Image.png);
+  background-size: contain;
+}
+
